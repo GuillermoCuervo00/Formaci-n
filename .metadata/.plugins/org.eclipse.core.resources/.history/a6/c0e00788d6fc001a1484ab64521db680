@@ -1,0 +1,89 @@
+package gol2;
+
+import java.io.IOException;
+
+public class gol {
+	public static int[][][] matrix;
+	public static int x;
+	public static int y = 0;
+	public static void main(String[] args) throws IOException {
+	
+		matrix = new int[99][99][2];
+		matrix_init();
+		do {
+			print();
+			matrix_next_gen();
+			 System.out.println("\b") ;
+			    System.out.flush();  
+		}while(true);
+		
+		
+	}
+	
+	static void matrix_init() {
+	
+		for (y = 0;y<99;y++) {
+			for (x=0;x<99;x++) {
+				matrix[x][y][1]=0;
+			}
+		}
+		
+		matrix[10][10][1]=1;
+		matrix[11][10][1]=1;
+		matrix[11][11][1]=1;
+		matrix[12][11][1]=1;
+		matrix[11][12][1]=1;
+	}
+	
+	static void print() {
+		int x,y = 0;
+		for (y = 0;y<99;y++) {
+			System.out.println("");
+			for (x=0;x<99;x++) {
+				switch(matrix[x][y][1]) {
+				case 0:
+					System.out.print("Ø");
+					break;
+				case 1:
+					System.out.print("■");
+					break;
+				default:
+					System.out.print("?");
+				} 	
+				System.out.print(" ");
+			}
+		}
+	}
+	static void matrix_next_gen() {
+		int alive = 0;
+		for (y = 1;y<98;y++) {
+			for (x=1;x<98;x++) {
+				if(matrix[x-1][y-1][1]==1)
+					alive++;
+				if(matrix[x][y-1][1]==1)
+					alive++;
+				if(matrix[x+1][y-1][1]==1)
+					alive++;
+				if(matrix[x-1][y][1]==1)
+					alive++;
+				if(matrix[x+1][y][1]==1)
+					alive++;
+				if(matrix[x-1][y+1][1]==1)
+					alive++;
+				if(matrix[x][y+1][1]==1)
+					alive++;
+				if(matrix[x+1][y+1][1]==1)
+					alive++;
+				if (alive==2 || alive==3)
+					matrix[x][y][0]=1;
+	
+			}
+			
+		}
+		for (y = 0;y<99;y++) {
+			for (x=0;x<99;x++) {
+				matrix[x][y][1]=matrix[x][y][0];
+			}
+		}
+	}
+}

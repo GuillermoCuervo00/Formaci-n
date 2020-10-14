@@ -1,0 +1,12 @@
+
+public class Programa {
+	public static void main(String [] args) {
+		
+		Persona p = new Persona();
+		System.out.println(p);
+		p.nombre = "Pepa";
+		p.edad = 18;
+		
+		
+	}
+}
